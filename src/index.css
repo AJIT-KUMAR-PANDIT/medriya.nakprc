@@ -1,0 +1,354 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto+Flex:opsz,wght@8..144,100..1000&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  body {
+    min-height: max(884px, 100dvh);
+  }
+}
+
+@layer utilities {
+  .material-symbols-outlined {
+    font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+  }
+  .hide-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+  .hide-scrollbar {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+  .tonal-card-elevation {
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  }
+
+  /* ===== MICRO-INTERACTION UTILITIES ===== */
+
+  /* Ripple effect on click */
+  .ripple {
+    position: relative;
+    overflow: hidden;
+  }
+  .ripple::after {
+    content: '';
+    position: absolute;
+    inset: -2px;
+    background: radial-gradient(circle at var(--x, 50%) var(--y, 50%), rgba(255,255,255,0.35) 0%, transparent 60%);
+    opacity: 0;
+    transform: scale(0);
+    transition: opacity 0.4s ease-out, transform 0.6s cubic-bezier(0.22, 1, 0.36, 1);
+    border-radius: inherit;
+    pointer-events: none;
+  }
+  .ripple:active::after {
+    opacity: 1;
+    transform: scale(2.5);
+    transition: 0s;
+  }
+
+  /* Stagger animation for lists */
+  .stagger > * {
+    opacity: 0;
+    transform: translateY(12px) scale(0.97);
+    animation: stagger-in 0.4s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+  }
+  .stagger > *:nth-child(1) { animation-delay: 0.05s; }
+  .stagger > *:nth-child(2) { animation-delay: 0.1s; }
+  .stagger > *:nth-child(3) { animation-delay: 0.15s; }
+  .stagger > *:nth-child(4) { animation-delay: 0.2s; }
+  .stagger > *:nth-child(5) { animation-delay: 0.25s; }
+  .stagger > *:nth-child(6) { animation-delay: 0.3s; }
+  .stagger > *:nth-child(7) { animation-delay: 0.35s; }
+  .stagger > *:nth-child(8) { animation-delay: 0.4s; }
+
+  /* Card hover lift */
+  .card-hover {
+    transition: transform 0.25s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.25s ease, border-color 0.25s ease;
+  }
+  .card-hover:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 24px rgba(15, 82, 56, 0.12), 0 2px 8px rgba(15, 82, 56, 0.06);
+  }
+
+  /* Subtle glow on focus */
+  .glow-focus:focus {
+    box-shadow: 0 0 0 3px rgba(15, 82, 56, 0.15), 0 0 16px rgba(15, 82, 56, 0.08);
+  }
+
+  /* Breathing/pulse indicator */
+  .pulse-slow {
+    animation: pulse-slow 3s ease-in-out infinite;
+  }
+
+  /* Shimmer loading effect */
+  .shimmer {
+    background: linear-gradient(90deg, transparent 0%, rgba(181, 240, 206, 0.15) 50%, transparent 100%);
+    background-size: 200% 100%;
+    animation: shimmer 1.8s ease-in-out infinite;
+  }
+
+  /* Page transitions */
+  .page-enter {
+    animation: page-enter 0.35s cubic-bezier(0.22, 1, 0.36, 1);
+  }
+
+  /* Icon bounce on state change */
+  .icon-bounce {
+    animation: icon-bounce 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+  }
+
+  /* Chip pill press spring */
+  .chip-spring {
+    transition: transform 0.2s cubic-bezier(0.34, 1.56, 0.64, 1), background-color 0.2s ease;
+  }
+  .chip-spring:active {
+    transform: scale(0.93);
+  }
+
+  /* Progress ring animation */
+  .ring-animate {
+    stroke-dasharray: 251.2;
+    stroke-dashoffset: 251.2;
+    animation: ring-fill 1.5s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+    transform-origin: center;
+    transform: rotate(-90deg);
+  }
+
+  /* FAB bounce-in */
+  .fab-bounce {
+    animation: fab-bounce 0.5s cubic-bezier(0.34, 1.56, 0.64, 1) both;
+  }
+
+  /* Number counter pulse */
+  .counter-pulse {
+    animation: counter-pulse 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
+  }
+
+  /* Breathing dot */
+  .breath-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: currentColor;
+    animation: pulse-slow 2s ease-in-out infinite;
+  }
+
+  /* Skeleton loading card */
+  .skeleton-card {
+    background: linear-gradient(135deg, #e7e8e9 25%, #edeeef 50%, #e7e8e9 75%);
+    background-size: 200% 200%;
+    animation: skeleton-wave 1.5s ease-in-out infinite;
+    border-radius: 0.75rem;
+  }
+
+  /* Floating label interaction */
+  .float-label input:focus ~ label,
+  .float-label input:not(:placeholder-shown) ~ label {
+    transform: translateY(-1.25rem) translateY(-0.25rem) scale(0.8);
+    color: #0f5238;
+  }
+
+  /* Card swipe hint */
+  .swipe-hint {
+    animation: swipe-hint 2.5s ease-in-out infinite;
+  }
+
+  /* Gradient text shimmer */
+  .text-shimmer {
+    background: linear-gradient(135deg, #0f5238, #95d4b3, #0f5238);
+    background-size: 200% 200%;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    animation: shimmer-text 4s ease-in-out infinite;
+  }
+
+  /* Pill rotation on hover */
+  .pill-spin {
+    transition: transform 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+  }
+  .pill-spin:hover {
+    transform: rotate(360deg) scale(1.1);
+  }
+
+  /* Slide up on scroll */
+  .slide-up {
+    opacity: 0;
+    transform: translateY(24px);
+    transition: opacity 0.5s ease, transform 0.5s cubic-bezier(0.22, 1, 0.36, 1);
+  }
+  .slide-up.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  /* Scale on hover for interactive */
+  .scale-hover {
+    transition: transform 0.2s cubic-bezier(0.34, 1.56, 0.64, 1);
+  }
+  .scale-hover:hover {
+    transform: scale(1.04);
+  }
+
+  /* Glow border animation */
+  .glow-border {
+    position: relative;
+    overflow: hidden;
+  }
+  .glow-border::before {
+    content: '';
+    position: absolute;
+    inset: -2px;
+    background: conic-gradient(from var(--angle, 0deg), transparent 60%, #95d4b3 80%, transparent 100%);
+    border-radius: inherit;
+    animation: glow-rotate 4s linear infinite;
+    z-index: -1;
+  }
+
+  /* Elastic divider */
+  .elastic-divider {
+    height: 1px;
+    background: linear-gradient(90deg, transparent, #bfc9c1 20%, #bfc9c1 80%, transparent);
+    transition: transform 0.3s cubic-bezier(0.22, 1, 0.36, 1), opacity 0.3s ease;
+  }
+  .elastic-divider:hover {
+    transform: scaleX(1.05);
+    opacity: 0.7;
+  }
+
+  /* Typing cursor animation */
+  .typing-cursor::after {
+    content: '|';
+    animation: blink-cursor 0.8s step-end infinite;
+    color: #0f5238;
+  }
+}
+
+/* ===== KEYFRAME ANIMATIONS ===== */
+
+@keyframes stagger-in {
+  from {
+    opacity: 0;
+    transform: translateY(12px) scale(0.97);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+@keyframes pulse-slow {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.6; transform: scale(0.85); }
+}
+
+@keyframes shimmer {
+  0% { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
+}
+
+@keyframes page-enter {
+  from {
+    opacity: 0;
+    transform: translateY(16px) scale(0.98);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+@keyframes icon-bounce {
+  0% { transform: scale(1); }
+  40% { transform: scale(1.3); }
+  100% { transform: scale(1); }
+}
+
+@keyframes ring-fill {
+  from {
+    stroke-dashoffset: 251.2;
+  }
+  to {
+    stroke-dashoffset: var(--target-offset, 37.68);
+  }
+}
+
+@keyframes fab-bounce {
+  from {
+    opacity: 0;
+    transform: scale(0.3) translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+}
+
+@keyframes counter-pulse {
+  0% { transform: scale(1); }
+  30% { transform: scale(1.25); }
+  60% { transform: scale(0.95); }
+  100% { transform: scale(1); }
+}
+
+@keyframes skeleton-wave {
+  0% { background-position: 200% 0; }
+  100% { background-position: -200% 0; }
+}
+
+@keyframes swipe-hint {
+  0%, 100% { transform: translateX(0); }
+  50% { transform: translateX(6px); }
+}
+
+@keyframes shimmer-text {
+  0% { background-position: 200% 50%; }
+  100% { background-position: -200% 50%; }
+}
+
+@keyframes glow-rotate {
+  to { --angle: 360deg; }
+}
+
+@property --angle {
+  syntax: '<angle>';
+  initial-value: 0deg;
+  inherits: false;
+}
+
+@keyframes blink-cursor {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0; }
+}
+
+@keyframes float-up {
+  from { transform: translateY(8px); opacity: 0; }
+  to { transform: translateY(0); opacity: 1; }
+}
+
+@keyframes shimmer-card {
+  0% { background-position: -460px 0; }
+  100% { background-position: 460px 0; }
+}
+
+@keyframes check-pop {
+  0% { transform: scale(0) rotate(-45deg); opacity: 0; }
+  50% { transform: scale(1.3) rotate(5deg); opacity: 1; }
+  100% { transform: scale(1) rotate(0deg); opacity: 1; }
+}
+
+@keyframes slide-in-right {
+  from { transform: translateX(20px); opacity: 0; }
+  to { transform: translateX(0); opacity: 1; }
+}
+
+@keyframes wave-up {
+  from { transform: translateY(100%); opacity: 0; }
+  to { transform: translateY(0); opacity: 1; }
+}
+
+/* trigger reload */
